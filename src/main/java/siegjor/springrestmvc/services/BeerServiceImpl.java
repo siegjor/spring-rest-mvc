@@ -7,16 +7,13 @@ import siegjor.springrestmvc.model.BeerStyle;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Slf4j
 @Service
 public class BeerServiceImpl implements BeerService {
 
-    private HashMap<UUID, Beer> beerMap;
+    private Map<UUID, Beer> beerMap;
 
     public BeerServiceImpl() {
         this.beerMap = new HashMap<>();
@@ -69,7 +66,7 @@ public class BeerServiceImpl implements BeerService {
 
     @Override
     public Beer getBeerById(UUID id) {
-        log.debug("Get beer by id - in service: " + id.toString());
+        log.debug("Get beer by id - in service. Id: " + id.toString());
 
         return beerMap.get(id);
     }
