@@ -1,10 +1,10 @@
 package siegjor.springrestmvc.controller;
 
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import siegjor.springrestmvc.model.Customer;
 import siegjor.springrestmvc.services.CustomerService;
 
@@ -25,5 +25,15 @@ public class CustomerController {
     @RequestMapping(value = "{customerId}", method = RequestMethod.GET)
     Customer getCustomerById(@PathVariable("customerId") UUID id) {
         return customerService.getCustomerById(id);
+    }
+
+    @PostMapping
+    ResponseEntity handlePost(@RequestBody Customer customer) {
+        Customer savedCustomer = customerService.saveNewCustomer(customer);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Location", "/api/v1/customer/" + savedCustomer.getId().toString());
+
+        return new ResponseEntity(headers, HttpStatus.CREATED);
     }
 }
