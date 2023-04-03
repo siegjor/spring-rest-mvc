@@ -17,18 +17,24 @@ import java.util.UUID;
 public class CustomerController {
     final CustomerService customerService;
 
+    @PutMapping("{customerId}")
+    public ResponseEntity updateById(@PathVariable("customerId") UUID customerId, @RequestBody Customer customer) {
+        customerService.updateById(customerId, customer);
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
+    }
+
     @RequestMapping(method = RequestMethod.GET)
-    List<Customer> listCustomers() {
+    public List<Customer> listCustomers() {
         return customerService.listCustomers();
     }
 
     @RequestMapping(value = "{customerId}", method = RequestMethod.GET)
-    Customer getCustomerById(@PathVariable("customerId") UUID id) {
+    public Customer getCustomerById(@PathVariable("customerId") UUID id) {
         return customerService.getCustomerById(id);
     }
 
     @PostMapping
-    ResponseEntity handlePost(@RequestBody Customer customer) {
+    public ResponseEntity handlePost(@RequestBody Customer customer) {
         Customer savedCustomer = customerService.saveNewCustomer(customer);
 
         HttpHeaders headers = new HttpHeaders();
