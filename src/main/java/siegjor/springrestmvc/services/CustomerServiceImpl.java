@@ -1,6 +1,7 @@
 package siegjor.springrestmvc.services;
 
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import siegjor.springrestmvc.model.Customer;
 
 import java.time.LocalDateTime;
@@ -78,5 +79,14 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public void deleteCustomerById(UUID customerId) {
         customersMap.remove(customerId);
+    }
+
+    @Override
+    public void patchCustomerById(UUID customerId, Customer customer) {
+        Customer existing = customersMap.get(customerId);
+
+        if (StringUtils.hasText(customer.getCustomerName())) {
+            existing.setCustomerName(customer.getCustomerName());
+        }
     }
 }
