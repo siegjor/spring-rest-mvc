@@ -1,6 +1,7 @@
 package siegjor.springrestmvc.controller;
 
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +13,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RequestMapping("/api/v1/customer")
-@AllArgsConstructor
+@RequiredArgsConstructor
 @RestController
 public class CustomerController {
     final CustomerService customerService;
