@@ -1,9 +1,8 @@
 package siegjor.springrestmvc.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Version;
+import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.GenericGenerator;
 import siegjor.springrestmvc.model.BeerStyle;
 
 import java.math.BigDecimal;
@@ -18,11 +17,13 @@ import java.util.UUID;
 @NoArgsConstructor
 public class Beer {
     @Id
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    @Column(length = 36, columnDefinition = "varchar", updatable = false, nullable = false)
     private UUID id;
 
     @Version
     private Integer version;
-
     private String beerName;
     private BeerStyle beerStyle;
     private String upc;
